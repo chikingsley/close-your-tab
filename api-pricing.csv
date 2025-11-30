@@ -1,0 +1,9 @@
+model,provider,input_price,output_price,speed,notes
+zai-glm-4.6,Cerebras,2.25,2.75,~1000 tokens/s,
+gpt-oss-120b,Cerebras,0.35,0.75,~3000 tokens/s,
+qwen-3-32b,Cerebras,0.40,0.80,~2600 tokens/s,
+qwen-3-235b-instruct,Cerebras,0.60,1.20,~1400 tokens/s,
+gemini-3-pro-preview,Gemini,2.00,12.00,~75 tokens/s,
+gemini-2.5-pro,Gemini,1.25,10.00,~75 tokens/s,
+gemini-2.5-flash,Gemini,0.30,2.50,~225 tokens/s,audio: 1.00/2.50
+gemini-2.5-flash-lite,Gemini,0.10,0.40,~300 tokens/s,audio: 0.30/0.40
