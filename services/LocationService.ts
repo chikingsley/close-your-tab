@@ -76,7 +76,14 @@ export const getCurrentLocation = async () => {
 // Define the background task
 TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
   if (error) {
-    console.error('Location task error:', error);
+    // Code 0 (kCLErrorDomain) = location unknown, often happens on initial task start
+    // This is typically transient and can be safely ignored
+    const errorCode = (error as { code?: number })?.code;
+    if (errorCode === 0) {
+      console.log('Location temporarily unavailable, waiting for next update...');
+    } else {
+      console.error('Location task error:', error);
+    }
     return;
   }
 

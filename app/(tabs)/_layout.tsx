@@ -1,46 +1,57 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
-import type React from "react";
-
-function TabBarIcon(props: {
-	name: React.ComponentProps<typeof FontAwesome>["name"];
-	color: string;
-}) {
-	return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import { TouchableOpacity } from "react-native";
 
 export default function TabLayout() {
 	const { colorScheme } = useColorScheme();
+	const router = useRouter();
+	const isDark = colorScheme === "dark";
 
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: colorScheme === "dark" ? "#fff" : "#2f95dc",
-				headerShown: false,
+				tabBarActiveTintColor: isDark ? "#fff" : "#007AFF",
+				tabBarInactiveTintColor: isDark ? "#666" : "#8E8E93",
+				tabBarStyle: {
+					backgroundColor: isDark ? "#000" : "#fff",
+					borderTopColor: isDark ? "#1c1c1e" : "#e5e5ea",
+				},
+				headerStyle: {
+					backgroundColor: isDark ? "#000" : "#fff",
+				},
+				headerTintColor: isDark ? "#fff" : "#000",
+				headerRight: () => (
+					<TouchableOpacity
+						onPress={() => router.push("/settings")}
+						className="mr-4"
+					>
+						<Ionicons
+							name="settings-outline"
+							size={24}
+							color={isDark ? "#fff" : "#007AFF"}
+						/>
+					</TouchableOpacity>
+				),
 			}}
 		>
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Home",
-					tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-				}}
-			/>
-			<Tabs.Screen
-				name="history"
-				options={{
-					title: "History",
-					tabBarIcon: ({ color }) => (
-						<TabBarIcon name="history" color={color} />
+					title: "Map",
+					headerShown: false,
+					tabBarIcon: ({ color, size }) => (
+						<Ionicons name="map" size={size} color={color} />
 					),
 				}}
 			/>
 			<Tabs.Screen
-				name="settings"
+				name="insights"
 				options={{
-					title: "Settings",
-					tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
+					title: "Insights",
+					tabBarIcon: ({ color, size }) => (
+						<Ionicons name="stats-chart" size={size} color={color} />
+					),
 				}}
 			/>
 		</Tabs>

@@ -1,0 +1,7 @@
+{
+  "name": "Close Your Tab",
+  "description": "A personal bar tab tracker to help you never leave a card behind and track your nightlife spending.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

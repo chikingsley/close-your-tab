@@ -6,6 +6,7 @@ import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme } from 'nativewind';
 
 import { usePermissions } from '@/hooks/usePermissions';
@@ -38,7 +39,7 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar
         key={`root-status-bar-${isDark ? 'light' : 'dark'}`}
         style={isDark ? 'light' : 'dark'}
@@ -46,10 +47,11 @@ export default function RootLayout() {
       <NavThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="settings" options={{ presentation: 'modal', title: 'Settings' }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         </Stack>
         <PortalHost />
       </NavThemeProvider>
-    </>
+    </GestureHandlerRootView>
   );
 }

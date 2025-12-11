@@ -10,6 +10,21 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 
 ---
 
+## Feature Docs
+
+Detailed specs for each feature area:
+
+- [01 - Home Screen](./features/01-home-screen.md)
+- [02 - Open/Close Tab Flow](./features/02-tab-flow.md)
+- [03 - Map View](./features/03-map-view.md)
+- [04 - Search Places](./features/04-search-places.md)
+- [05 - Drink Tracking](./features/05-drink-tracking.md)
+- [06 - Receipt Scanner](./features/06-receipt-scanner.md)
+- [07 - Analytics](./features/07-analytics.md)
+- [08 - Plaid Integration](./features/08-plaid-integration.md)
+
+---
+
 ## Phase 1: Core MVP (Current)
 
 *Foundation - Get the basics working reliably*
@@ -26,12 +41,44 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 
 ### To Do
 
-- [ ] **UI Polish** - Rebuild screens with RNR components
-- [ ] **Open Tab Flow** - Clean UX for opening a tab (detected venue vs manual)
-- [ ] **Close Tab Flow** - Enter final amount, add tip, confirm
-- [ ] **Active Tab Display** - Show current tab with venue name, time elapsed
-- [ ] **History Screen** - List of past tabs with date, venue, amount
-- [ ] **Settings Screen** - Notification preferences, location settings
+#### Home Screen & Navigation
+
+- [ ] Bottom tab bar with RNR styling
+- [ ] Home screen layout (no active tab state)
+- [ ] Home screen layout (active tab state)
+- [ ] FAB button (context-aware: open tab vs view tab)
+
+#### Open Tab Flow
+
+- [ ] Venue detection prompt ("Looks like you're at X")
+- [ ] Manual venue selection (search/recent)
+- [ ] Confirm & start tab
+
+#### Active Tab Display
+
+- [ ] Active tab card (venue name, elapsed time, drink count)
+- [ ] Live timer component
+- [ ] Quick actions (add drink, close tab)
+
+#### Close Tab Flow
+
+- [ ] Close tab modal/screen
+- [ ] Final amount input
+- [ ] Tip calculator (%, custom)
+- [ ] Confirm & save to history
+
+#### History Screen
+
+- [ ] Tab history list (FlashList)
+- [ ] History item card (date, venue, amount, duration)
+- [ ] Empty state
+
+#### Settings Screen
+
+- [ ] Detection radius setting
+- [ ] Quiet hours (start/end)
+- [ ] Notification preferences
+- [ ] About/version info
 
 ---
 
@@ -41,17 +88,28 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 
 ### Map & Search
 
-- [ ] **Map View** - Show your location and nearby bars/restaurants
-- [ ] **Search Places** - Find venues by name (Google Places Autocomplete)
-- [ ] **Recent Venues** - Quick access to frequently visited spots
-- [ ] **Tap to Open Tab** - Select venue on map → open tab
+- [ ] **Map View** - Show location + nearby venues with custom markers
+- [ ] **Venue Chips** - Interactive markers (name + open tab button)
+- [ ] **User Location** - Custom pulsing dot
+- [ ] **Search Places** - Google Places Autocomplete
+- [ ] **Filter Venues** - By type (bars, restaurants, all)
+- [ ] **Recent Venues** - Quick access list
+- [ ] **Tap to Open Tab** - From marker → open tab flow
 
-### Tab Tracking
+### Drink Tracking (NEW)
+
+- [ ] **Add Drink** - Select from common drinks or custom
+- [ ] **Price Field** - Optional, empty by default
+- [ ] **Venue Price Memory** - Store manually entered prices per venue
+- [ ] **Price Suggestions** - Show saved prices for venue on return visit
+- [ ] **Running Total** - Sum of known prices
+- [ ] **Receipt Reconciliation** - Match scanned receipt to drinks
+
+### Tab Enhancements
 
 - [ ] **Time Tracker** - "You've been here for 2h 15m"
-- [ ] **Drink Counter** - Tap to add drinks (simple +/- counter)
-- [ ] **Running Estimate** - Rough estimate based on avg drink price ($8-15)
 - [ ] **Notes** - "Meeting friends", "Work happy hour", etc.
+- [ ] **Running Estimate** - Based on drink count × avg price
 
 ### Notifications
 
@@ -156,10 +214,24 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 | Service | Purpose | Status |
 |---------|---------|--------|
 | Google Places API | Venue detection & search | ✅ Active |
+| Google Maps API | Map view | ✅ Active (same key) |
 | Plaid | Bank transaction sync | ⏳ Phase 4 |
 | TheCocktailDB | Drink database | ⏳ Phase 5 |
 | PostHog/Amplitude | Analytics | ⏳ Future |
 | Sentry | Crash reporting | ⏳ Future |
+
+---
+
+## Tech Stack
+
+- **Framework**: React Native 0.81 + Expo SDK 54
+- **Navigation**: Expo Router (file-based)
+- **UI**: React Native Reusables (RNR) + NativeWind/Tailwind
+- **State**: Zustand + AsyncStorage persistence
+- **Maps**: react-native-maps (Google provider)
+- **Search**: react-native-google-places-autocomplete
+- **Location**: expo-location + expo-task-manager
+- **Notifications**: expo-notifications
 
 ---
 
@@ -176,3 +248,10 @@ Per [Plaid docs](https://plaid.com/docs/transactions/transactions-data/), pendin
 - **TabX** - Similar concept, venue-dependent
 
 Our angle: **Personal tracking, works anywhere, no merchant needed.**
+
+### Design Philosophy
+
+- Clean and simple by default
+- Options available for power users who want to engage
+- Mobile-first, one-handed operation
+- Dark theme (nightlife aesthetic)
