@@ -1,0 +1,46 @@
+# 02_navigation.yaml
+# Tests navigation between tabs and screens
+# Tags: navigation, ui
+
+appId: com.peacockerystudio.closeyourtab
+name: Navigation - Tab navigation and screen transitions
+tags:
+  - navigation
+  - ui
+
+---
+# Launch fresh
+- launchApp:
+    clearState: true
+
+# Wait for app to load
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 10000
+
+# Start on Map tab (default)
+- assertVisible: "Map"
+
+# Navigate to Insights tab
+- tapOn: "Insights"
+- extendedWaitUntil:
+    visible: "Total Spent"
+    timeout: 5000
+
+# Verify Insights screen elements
+- assertVisible: "Total Spent"
+- assertVisible: "Avg Tab"
+- assertVisible: "Total Tabs"
+
+# Navigate back to Map
+- tapOn: "Map"
+- extendedWaitUntil:
+    visible:
+      id: "map-view"
+      optional: true
+    timeout: 5000
+
+# Open Settings
+- tapOn:
+    id: "settings-button"
+    optional: true

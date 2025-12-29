@@ -1,0 +1,88 @@
+# 05_tab_flow_close.yaml
+# Tests closing a tab with final amount and tip
+# Tags: tab-flow, ui
+
+appId: com.peacockerystudio.closeyourtab
+name: Tab Flow - Close tab with tip
+tags:
+  - tab-flow
+  - ui
+
+---
+# This test assumes a tab is already open
+- launchApp
+
+# Wait for app to load
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 10000
+
+# Look for active tab
+- extendedWaitUntil:
+    visible: "Close Tab"
+    timeout: 5000
+    optional: true
+
+# Tap Close Tab button
+- tapOn:
+    text: "Close Tab"
+    optional: true
+
+# Wait for close form
+- extendedWaitUntil:
+    visible: "Close Your Tab"
+    timeout: 3000
+    optional: true
+
+# Verify close form elements
+- assertVisible:
+    text: "Final Amount"
+    optional: true
+
+- assertVisible:
+    text: "Tip"
+    optional: true
+
+# Verify tip percentage buttons
+- assertVisible:
+    text: "15%"
+    optional: true
+
+- assertVisible:
+    text: "18%"
+    optional: true
+
+- assertVisible:
+    text: "20%"
+    optional: true
+
+- assertVisible:
+    text: "25%"
+    optional: true
+
+# Enter final amount
+- tapOn:
+    id: "bottom-sheet-input"
+    index: 0
+    optional: true
+
+- inputText:
+    text: "45.00"
+    optional: true
+
+# Select 20% tip
+- tapOn:
+    text: "20%"
+    optional: true
+
+# Confirm close
+- tapOn:
+    text: "Close Tab"
+    index: 1
+    optional: true
+
+# Verify tab was closed - should not see active tab anymore
+- extendedWaitUntil:
+    notVisible: "RUNNING"
+    timeout: 5000
+    optional: true

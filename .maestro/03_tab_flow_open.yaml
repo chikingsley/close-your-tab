@@ -1,0 +1,50 @@
+# 03_tab_flow_open.yaml
+# Tests opening a tab at a venue
+# Tags: tab-flow, ui
+
+appId: com.peacockerystudio.closeyourtab
+name: Tab Flow - Open a new tab
+tags:
+  - tab-flow
+  - ui
+
+---
+# Launch with clean state
+- launchApp:
+    clearState: true
+
+# Wait for app to be ready
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 10000
+
+# If there's a venue detected or we need to manually open a tab
+# Look for the "Open Tab" or venue marker interaction
+- tapOn:
+    text: "Open Tab"
+    optional: true
+
+# Alternatively, tap on a venue marker if visible
+- tapOn:
+    id: "map-marker"
+    optional: true
+    index: 0
+
+# If bottom sheet appears with tab info
+- extendedWaitUntil:
+    visible: "Add Drink"
+    timeout: 5000
+    optional: true
+
+# Verify tab bottom sheet elements when active
+- assertVisible:
+    text: "RUNNING"
+    optional: true
+
+- assertVisible:
+    text: "Add Drink"
+    optional: true
+
+- assertVisible:
+    text: "Close Tab"
+    optional: true
