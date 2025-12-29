@@ -35,9 +35,7 @@ tags:
 # Navigate back to Map
 - tapOn: "Map"
 - extendedWaitUntil:
-    visible:
-      id: "map-view"
-      optional: true
+    visible: "Map"
     timeout: 5000
 
 # Open Settings

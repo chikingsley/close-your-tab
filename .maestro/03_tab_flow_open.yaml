@@ -34,7 +34,6 @@ tags:
 - extendedWaitUntil:
     visible: "Add Drink"
     timeout: 5000
-    optional: true
 
 # Verify tab bottom sheet elements when active
 - assertVisible:

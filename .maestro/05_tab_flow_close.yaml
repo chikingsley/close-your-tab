@@ -21,7 +21,6 @@ tags:
 - extendedWaitUntil:
     visible: "Close Tab"
     timeout: 5000
-    optional: true
 
 # Tap Close Tab button
 - tapOn:
@@ -32,7 +31,6 @@ tags:
 - extendedWaitUntil:
     visible: "Close Your Tab"
     timeout: 3000
-    optional: true
 
 # Verify close form elements
 - assertVisible:
@@ -60,15 +58,13 @@ tags:
     text: "25%"
     optional: true
 
-# Enter final amount
+# Enter final amount - tap input first
 - tapOn:
     id: "bottom-sheet-input"
     index: 0
     optional: true
 
-- inputText:
-    text: "45.00"
-    optional: true
+- inputText: "45.00"
 
 # Select 20% tip
 - tapOn:
@@ -85,4 +81,3 @@ tags:
 - extendedWaitUntil:
     notVisible: "RUNNING"
     timeout: 5000
-    optional: true

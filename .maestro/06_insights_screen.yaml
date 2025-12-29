@@ -48,9 +48,7 @@ tags:
     optional: true
 
 # Scroll to check more content if present
-- scroll:
-    direction: "down"
-    duration: 500
+- scroll
 
-# Check for consistent card styling (looking for rounded corners implicitly via layout)
+# Check for consistent card styling
 - takeScreenshot: insights_screen

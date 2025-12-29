@@ -20,11 +20,6 @@ tags:
 # === MAP SCREEN ===
 - takeScreenshot: ui_map_screen
 
-# Check map controls if visible
-- assertVisible:
-    id: "map-view"
-    optional: true
-
 # Check filter chips if present
 - assertVisible:
     text: "Bars"
@@ -59,9 +54,7 @@ tags:
 # Return to map
 - tapOn: "Map"
 - extendedWaitUntil:
-    visible:
-      id: "map-view"
-      optional: true
+    visible: "Map"
     timeout: 5000
 
 # Final screenshot

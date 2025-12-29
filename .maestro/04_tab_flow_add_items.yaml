@@ -23,7 +23,6 @@ tags:
 - extendedWaitUntil:
     visible: "Add Drink"
     timeout: 5000
-    optional: true
 
 # If collapsed, expand the sheet
 - tapOn:
@@ -34,7 +33,6 @@ tags:
 - extendedWaitUntil:
     visible: "QUICK ADD"
     timeout: 3000
-    optional: true
 
 # Add a beer
 - tapOn:
@@ -69,12 +67,9 @@ tags:
 - extendedWaitUntil:
     visible: "Item name..."
     timeout: 3000
-    optional: true
 
-- inputText:
-    text: "Nachos"
-    id: "bottom-sheet-input"
-    optional: true
+# Input the item name
+- inputText: "Nachos"
 
 - tapOn:
     text: "Add"
