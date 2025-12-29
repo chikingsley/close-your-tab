@@ -49,7 +49,9 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build iOS Simulator app
-        run: eas build --profile development --platform ios --local --output ./app-build.tar.gz
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas build --profile development --platform ios --local --output ./app-build.tar.gz --non-interactive
 
       - name: Extract app
         run: |
