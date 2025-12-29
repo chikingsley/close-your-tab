@@ -69,6 +69,5 @@ jobs:
         run: |
           ~/.maestro/bin/maestro cloud \
             --apiKey "$MAESTRO_CLOUD_API_KEY" \
-            --app close-your-tab.app \
-            --platform ios \
+            --app-file close-your-tab.app \
             .maestro/
