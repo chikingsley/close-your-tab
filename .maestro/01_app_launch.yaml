@@ -9,10 +9,12 @@ tags:
   - ui
 
 ---
-# Launch the app
+# Launch the app with permissions granted
 - launchApp:
     clearState: true
     clearKeychain: true
+    permissions:
+      all: allow
 
 # Wait for app to load
 - extendedWaitUntil:

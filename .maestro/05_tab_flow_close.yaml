@@ -9,8 +9,10 @@ tags:
   - ui
 
 ---
-# This test assumes a tab is already open
-- launchApp
+# Launch with permissions
+- launchApp:
+    permissions:
+      all: allow
 
 # Wait for app to load
 - extendedWaitUntil:

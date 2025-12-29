@@ -9,8 +9,10 @@ tags:
   - navigation
 
 ---
+# Launch with permissions
 - launchApp:
-    clearState: false
+    permissions:
+      all: allow
 
 # Wait for app
 - extendedWaitUntil:

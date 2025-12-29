@@ -9,8 +9,11 @@ tags:
   - smoke
 
 ---
+# Launch with permissions
 - launchApp:
     clearState: true
+    permissions:
+      all: allow
 
 # Wait for app
 - extendedWaitUntil:

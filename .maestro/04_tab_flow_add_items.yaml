@@ -9,10 +9,10 @@ tags:
   - ui
 
 ---
-# This test assumes a tab is already open
-# Run after 03_tab_flow_open.yaml or with pre-existing state
-
-- launchApp
+# Launch with permissions
+- launchApp:
+    permissions:
+      all: allow
 
 # Wait for app to load
 - extendedWaitUntil:

@@ -9,9 +9,11 @@ tags:
   - ui
 
 ---
-# Launch fresh
+# Launch fresh with permissions
 - launchApp:
     clearState: true
+    permissions:
+      all: allow
 
 # Wait for app to load
 - extendedWaitUntil:
