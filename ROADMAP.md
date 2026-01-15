@@ -8,11 +8,11 @@ A personal tab tracking app that helps you never forget your bar tab - works at 
 
 Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Tab is **personal tracking** that works anywhere in the world.
 
----
+- --
 
 ## Phase 1: Core MVP (Current)
 
-*Foundation - Get the basics working reliably*
+* Foundation - Get the basics working reliably*
 
 ### Done
 
@@ -33,11 +33,11 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] **History Screen** - List of past tabs with date, venue, amount
 - [ ] **Settings Screen** - Notification preferences, location settings
 
----
+- --
 
 ## Phase 2: Enhanced UX
 
-*Make it delightful and useful*
+* Make it delightful and useful*
 
 ### Map & Search
 
@@ -59,11 +59,11 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] **Time-based alerts** - Optional hourly check-ins
 - [ ] **Customizable departure radius** - 50m, 100m, 200m
 
----
+- --
 
 ## Phase 3: Insights & Stats
 
-*The "Mint for bar spending" angle*
+* The "Mint for bar spending" angle*
 
 ### Spending Analytics
 
@@ -79,11 +79,11 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] **Budget alerts** - "You've spent 80% of your bar budget"
 - [ ] **Streak tracking** - "3 weeks under budget!"
 
----
+- --
 
 ## Phase 4: Plaid Integration
 
-*Real transaction matching*
+* Real transaction matching*
 
 ### Bank Connection
 
@@ -104,11 +104,11 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] **Filter by category** - Only show bar/restaurant transactions
 - [ ] **Local storage option** - Don't sync to cloud
 
----
+- --
 
 ## Phase 5: Advanced Features
 
-*Nice-to-haves and future ideas*
+* Nice-to-haves and future ideas*
 
 ### BAC Tracker (Research Needed)
 
@@ -117,7 +117,7 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] **"Safe to drive" indicator** - Rough estimate (with disclaimers)
 - [ ] **Drink database** - Use TheCocktailDB or WineVybe API
 
-**APIs to explore:**
+* *APIs to explore:**
 
 - [TheCocktailDB](https://www.thecocktaildb.com/api.php) - Free cocktail database
 - [WineVybe](https://winevybe.com/) - Wine, beer, liquor database
@@ -135,11 +135,11 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] **Apple Watch** - Glanceable tab status
 - [ ] **Lock screen widget** - Time at venue
 
----
+- --
 
 ## Technical Debt & Polish
 
-*Ongoing improvements*
+* Ongoing improvements*
 
 - [ ] Error handling improvements
 - [ ] Offline support (queue actions when offline)
@@ -149,7 +149,7 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 - [ ] Crash reporting (Sentry)
 - [ ] App Store assets and submission
 
----
+- --
 
 ## API Keys & Services Needed
 
@@ -161,7 +161,7 @@ Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Ta
 | PostHog/Amplitude | Analytics | ⏳ Future |
 | Sentry | Crash reporting | ⏳ Future |
 
----
+- --
 
 ## Notes
 

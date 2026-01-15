@@ -1,11 +1,13 @@
 # 06 - Receipt Scanner
 
 ## Overview
+
 OCR-based receipt scanning to extract items and prices, then match to drinks on tab.
 
 ## Features
 
 ### Scan Flow
+
 1. Tap "Scan Receipt" button
 2. Camera opens / select from gallery
 3. Processing animation
@@ -14,6 +16,7 @@ OCR-based receipt scanning to extract items and prices, then match to drinks on 
 6. Confirm and save prices
 
 ### Extraction
+
 - Item names
 - Prices
 - Quantities (if listed)
@@ -21,48 +24,56 @@ OCR-based receipt scanning to extract items and prices, then match to drinks on 
 - Total (for verification)
 
 ### Matching
+
 - Auto-match by name similarity
 - Manual match for ambiguous items
 - Option to add as new drinks
 - Skip items that don't match
 
 ### Price Memory Update
+
 - All matched prices saved to venue memory
 - New items added to memory too
 
----
+- --
 
 ## Technical Options
 
 ### Option 1: expo-camera + Cloud OCR
+
 ```typescript
 import { Camera } from 'expo-camera';
 // Capture image → send to Google Cloud Vision or AWS Textract
-```
+
+```text
 
 ### Option 2: react-native-vision-camera + ML Kit
+
 ```typescript
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 import { useTextRecognition } from '@react-native-ml-kit/text-recognition';
-```
+
+```text
 
 ### Option 3: Third-party Receipt API
+
 - Veryfi
 - Taggun
 - Mindee
 - Higher accuracy, costs per scan
 
 ### Recommendation
+
 Start with mock implementation (like examples), then:
 1. Phase 1: Manual entry (no OCR)
 2. Phase 2: expo-camera + Google Cloud Vision
 3. Phase 3: On-device ML Kit (if needed)
 
----
+- --
 
 ## User Flow
 
-```
+```text
 [Scan Receipt] → [Camera/Gallery] → [Processing...]
                                           ↓
                                  [Show Extracted Items]
@@ -72,11 +83,13 @@ Start with mock implementation (like examples), then:
                                     [Confirm]
                                           ↓
                                [Update Price Memory]
-```
 
----
+```text
+
+- --
 
 ## Components Needed
+
 - [ ] `ReceiptScanner` - Camera capture
 - [ ] `ReceiptProcessing` - Loading state
 - [ ] `ExtractedItemsList` - Show OCR results
@@ -84,6 +97,7 @@ Start with mock implementation (like examples), then:
 - [ ] `ReceiptConfirmation` - Final review
 
 ## Mock Implementation (Phase 1)
+
 ```typescript
 const mockScanReceipt = async () => {
   await delay(2000); // Simulate processing
@@ -93,12 +107,15 @@ const mockScanReceipt = async () => {
     { name: 'Nachos', price: 12.50 },
   ];
 };
-```
+
+```text
 
 ## Status
+
 - [ ] Not started (Phase 2 feature)
 
 ## Notes
+
 - Receipt formats vary wildly
 - May need manual correction UI
 - Consider "Quick add from receipt" without full OCR

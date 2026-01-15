@@ -8,14 +8,23 @@ export default function InsightsScreen() {
 	const { history } = useTabStore();
 
 	// Calculate basic stats
-	const totalSpent = history.reduce((sum, tab) => sum + (tab.totalAmount || 0), 0);
+	const totalSpent = history.reduce(
+		(sum, tab) => sum + (tab.totalAmount || 0),
+		0,
+	);
 	const avgTab = history.length > 0 ? totalSpent / history.length : 0;
 	const thisMonth = history.filter((tab) => {
 		const tabDate = new Date(tab.startTime);
 		const now = new Date();
-		return tabDate.getMonth() === now.getMonth() && tabDate.getFullYear() === now.getFullYear();
+		return (
+			tabDate.getMonth() === now.getMonth() &&
+			tabDate.getFullYear() === now.getFullYear()
+		);
 	});
-	const monthlySpent = thisMonth.reduce((sum, tab) => sum + (tab.totalAmount || 0), 0);
+	const monthlySpent = thisMonth.reduce(
+		(sum, tab) => sum + (tab.totalAmount || 0),
+		0,
+	);
 
 	return (
 		<SafeAreaView className="flex-1 bg-gray-50 dark:bg-black" edges={["top"]}>

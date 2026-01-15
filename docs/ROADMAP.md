@@ -8,7 +8,7 @@ A personal tab tracking app that helps you never forget your bar tab - works at 
 
 Unlike Rooam (acquired by Amex) which requires venue partnerships, Close Your Tab is **personal tracking** that works anywhere in the world.
 
----
+- --
 
 ## Feature Docs
 
@@ -23,11 +23,11 @@ Detailed specs for each feature area:
 - [07 - Analytics](./features/07-analytics.md)
 - [08 - Plaid Integration](./features/08-plaid-integration.md)
 
----
+- --
 
 ## Phase 1: Core MVP (Current)
 
-*Foundation - Get the basics working reliably*
+* Foundation - Get the basics working reliably*
 
 ### Done
 
@@ -80,11 +80,11 @@ Detailed specs for each feature area:
 - [ ] Notification preferences
 - [ ] About/version info
 
----
+- --
 
 ## Phase 2: Enhanced UX
 
-*Make it delightful and useful*
+* Make it delightful and useful*
 
 ### Map & Search
 
@@ -117,11 +117,11 @@ Detailed specs for each feature area:
 - [ ] **Time-based alerts** - Optional hourly check-ins
 - [ ] **Customizable departure radius** - 50m, 100m, 200m
 
----
+- --
 
 ## Phase 3: Insights & Stats
 
-*The "Mint for bar spending" angle*
+* The "Mint for bar spending" angle*
 
 ### Spending Analytics
 
@@ -137,11 +137,11 @@ Detailed specs for each feature area:
 - [ ] **Budget alerts** - "You've spent 80% of your bar budget"
 - [ ] **Streak tracking** - "3 weeks under budget!"
 
----
+- --
 
 ## Phase 4: Plaid Integration
 
-*Real transaction matching*
+* Real transaction matching*
 
 ### Bank Connection
 
@@ -162,11 +162,11 @@ Detailed specs for each feature area:
 - [ ] **Filter by category** - Only show bar/restaurant transactions
 - [ ] **Local storage option** - Don't sync to cloud
 
----
+- --
 
 ## Phase 5: Advanced Features
 
-*Nice-to-haves and future ideas*
+* Nice-to-haves and future ideas*
 
 ### BAC Tracker (Research Needed)
 
@@ -175,7 +175,7 @@ Detailed specs for each feature area:
 - [ ] **"Safe to drive" indicator** - Rough estimate (with disclaimers)
 - [ ] **Drink database** - Use TheCocktailDB or WineVybe API
 
-**APIs to explore:**
+* *APIs to explore:**
 
 - [TheCocktailDB](https://www.thecocktaildb.com/api.php) - Free cocktail database
 - [WineVybe](https://winevybe.com/) - Wine, beer, liquor database
@@ -193,11 +193,11 @@ Detailed specs for each feature area:
 - [ ] **Apple Watch** - Glanceable tab status
 - [ ] **Lock screen widget** - Time at venue
 
----
+- --
 
 ## Technical Debt & Polish
 
-*Ongoing improvements*
+* Ongoing improvements*
 
 - [ ] Error handling improvements
 - [ ] Offline support (queue actions when offline)
@@ -207,7 +207,7 @@ Detailed specs for each feature area:
 - [ ] Crash reporting (Sentry)
 - [ ] App Store assets and submission
 
----
+- --
 
 ## API Keys & Services Needed
 
@@ -220,7 +220,7 @@ Detailed specs for each feature area:
 | PostHog/Amplitude | Analytics | ⏳ Future |
 | Sentry | Crash reporting | ⏳ Future |
 
----
+- --
 
 ## Tech Stack
 
@@ -233,7 +233,7 @@ Detailed specs for each feature area:
 - **Location**: expo-location + expo-task-manager
 - **Notifications**: expo-notifications
 
----
+- --
 
 ## Notes
 

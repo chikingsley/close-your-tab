@@ -2,16 +2,16 @@
 
 ## Product Concept Document
 
-**Version:** 0.1 (Draft)
-**Last Updated:** November 2025
+* *Version:** 0.1 (Draft)
+* *Last Updated:** November 2025
 
----
+- --
 
 ## Overview
 
 Tab Tracker is a mobile app that helps people remember to close their bar tabs and gain visibility into their drinking-related spending. The app uses location detection to automatically recognize when users enter and leave bars or restaurants, sending timely reminders to prevent forgotten tabs and walkouts.
 
----
+- --
 
 ## Problem Statement
 
@@ -22,7 +22,7 @@ People routinely forget to close bar tabs, especially as the evening progresses.
 - Holds on credit cards that take days to clear
 - No clear picture of actual spending on alcohol and dining out
 
----
+- --
 
 ## Target Users
 
@@ -31,7 +31,7 @@ People routinely forget to close bar tabs, especially as the evening progresses.
 - Budget-conscious individuals wanting visibility into discretionary spending
 - Groups who frequently split checks and need to track who owes whom
 
----
+- --
 
 ## Core Features
 
@@ -42,7 +42,7 @@ The app detects when a user enters a bar, restaurant, or similar establishment u
 - **Geolocation** paired with venue databases (Google Places, Foursquare, Yelp)
 - **Geofencing** to establish a perimeter around the detected venue
 
-**User Flow:**
+* *User Flow:**
 
 1. User enters a bar/restaurant
 2. App detects venue type via location + places API
@@ -50,65 +50,65 @@ The app detects when a user enters a bar, restaurant, or similar establishment u
 4. User confirms or dismisses
 5. If confirmed, tab is now "active" with timestamp and location recorded
 
-**Configuration Options:**
+* *Configuration Options:**
 
 - Auto-detect venues: On/Off
 - Venue types to detect: Bars only, Bars + Restaurants, All food/drink establishments
 - Quiet hours: Don't prompt between [time] and [time]
 
----
+- --
 
 ### 2. Departure Detection & Reminders
 
 When the user leaves the geofenced area around their active tab location:
 
-**User Flow:**
+* *User Flow:**
 
 1. User moves beyond threshold distance from venue (default: 200 feet)
 2. App waits brief delay (configurable, default: 2 minutes) to avoid false positives
 3. Push notification: "Did you close your tab at [Venue Name]?"
 4. User options:
-   - "Yes, closed it" → Prompts for amount/receipt (if required)
-   - "Still here" → Snoozes detection for 15 minutes
-   - "Oops, going back" → Keeps tab active
+    - "Yes, closed it" → Prompts for amount/receipt (if required)
+    - "Still here" → Snoozes detection for 15 minutes
+    - "Oops, going back" → Keeps tab active
 
-**Configuration Options:**
+* *Configuration Options:**
 
 - Detection distance threshold: 100ft / 200ft / 300ft / Custom
 - Delay before notification: 1 min / 2 min / 5 min
 - Require receipt/amount to close: Yes / No
 
----
+- --
 
 ### 3. Tab Closure & Receipt Capture
 
 When closing a tab, users can optionally (or mandatorily, if configured) log details:
 
-**Quick Close:**
+* *Quick Close:**
 
 - One tap to mark closed
 - Optional: Enter total amount manually
 
-**Receipt Capture:**
+* *Receipt Capture:**
 
 - Camera opens to photograph receipt
 - OCR extracts: Total, subtotal, tip, itemized purchases, venue name, date/time
 - User confirms or edits extracted data
 - Receipt image saved for records
 
-**Configuration Options:**
+* *Configuration Options:**
 
 - Require receipt to close tab: Yes / No
 - Require amount to close tab: Yes / No
 - Auto-categorize items: On / Off
 
----
+- --
 
 ### 4. Spending Analytics
 
 Dashboard providing visibility into bar and restaurant spending:
 
-**Metrics:**
+* *Metrics:**
 
 - Total spend: This week / This month / This year / All time
 - Average tab size
@@ -117,19 +117,19 @@ Dashboard providing visibility into bar and restaurant spending:
 - Spending by category (if itemized): Beer, Wine, Cocktails, Shots, Food, Other
 - Spending trends over time (week-over-week, month-over-month)
 
-**Goals & Budgets:**
+* *Goals & Budgets:**
 
 - Set monthly spending limit for bars/restaurants
 - Progress bar showing spend vs. budget
 - Alerts when approaching or exceeding budget
 
----
+- --
 
 ### 5. Bill Splitting
 
 For tabs shared with others:
 
-**Features:**
+* *Features:**
 
 - Add friends/contacts to a tab
 - Split evenly or by item (if receipt scanned)
@@ -137,7 +137,7 @@ For tabs shared with others:
 - Track pending payments ("Sarah owes you $24")
 - Running tally across all shared tabs
 
----
+- --
 
 ## Additional Features (Post-MVP)
 
@@ -184,7 +184,7 @@ For tabs shared with others:
 - Quick-open to close tab
 - Monthly spend summary
 
----
+- --
 
 ## Technical Architecture
 
@@ -194,42 +194,42 @@ React Native (iOS + Android from single codebase)
 
 ### Key Technical Components
 
-**Location Services:**
+* *Location Services:**
 
 - Background location tracking (battery-optimized)
 - Geofencing APIs (iOS: Core Location, Android: Geofencing API)
 - Limit: ~20 active geofences per app (OS limitation)—should be sufficient since typically only 1 active tab
 
-**Venue Detection:**
+* *Venue Detection:**
 
 - Google Places API or Foursquare Places API
 - Venue categorization to filter for bars/restaurants
 - Caching to reduce API calls
 
-**OCR/Receipt Scanning:**
+* *OCR/Receipt Scanning:**
 
 - On-device: iOS Vision framework, Android ML Kit
 - Fallback: Cloud OCR (Google Cloud Vision, AWS Textract)
 - On-device preferred for privacy and speed
 
-**Data Storage:**
+* *Data Storage:**
 
 - Local: AsyncStorage or SQLite for offline-first experience
 - Cloud sync: Firebase or Supabase for cross-device sync and backup
 - Receipt images: Cloud storage with user-controlled retention
 
-**Notifications:**
+* *Notifications:**
 
 - Push notifications via Firebase Cloud Messaging (FCM) / APNs
 - Local notifications for geofence triggers
 - Rich notifications with action buttons
 
-**Payment Integrations (Future):**
+* *Payment Integrations (Future):**
 
 - Plaid for bank account linking
 - Deep links to Venmo/Cash App/PayPal for split requests
 
----
+- --
 
 ## User Experience Considerations
 
@@ -264,7 +264,7 @@ Background location is battery-intensive. Mitigations:
 - "I'm still here" snooze prevents annoyance from stepping outside
 - Configurable sensitivity lets users tune to their needs
 
----
+- --
 
 ## MVP Scope
 
@@ -289,7 +289,7 @@ For initial release, focus on core loop:
 - Social features
 - Watch app/widgets
 
----
+- --
 
 ## Success Metrics
 
@@ -306,7 +306,7 @@ For initial release, focus on core loop:
 - Receipt capture rate (when available)
 - App store rating
 
----
+- --
 
 ## Open Questions
 
@@ -316,7 +316,7 @@ For initial release, focus on core loop:
 4. **Social proof:** Would users share/recommend this? What's the viral hook?
 5. **Edge cases:** What about food halls, hotel bars, airports, stadiums with multiple vendors?
 
----
+- --
 
 ## Appendix: User Stories
 
@@ -341,11 +341,10 @@ For initial release, focus on core loop:
 - As a user, I want to photograph my receipt and have the app automatically extract the amount.
 - As someone tracking spending, I want itemized records of what I bought, not just totals.
 
----
+- --
 
 ## Revision History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 0.1 | Nov 2025 | — | Initial draft |
-

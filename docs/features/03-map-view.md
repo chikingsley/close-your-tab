@@ -45,7 +45,7 @@ Inspired by Example 2's implementation:
 - Tap "Open Tab" → Open tab flow
 - Tap user location button → Center on user
 
----
+- --
 
 ## Technical Implementation
 
@@ -60,7 +60,8 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
   showsUserLocation={false} // Using custom marker
   customMapStyle={darkMapStyle}
 >
-```
+
+```text
 
 ### Custom Markers
 
@@ -71,7 +72,8 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 >
   <VenueChip venue={venue} hasActiveTab={...} />
 </Marker>
-```
+
+```text
 
 ### Performance Notes
 
@@ -80,7 +82,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 - Use clustering if 50+ venues (react-native-map-clustering)
 - Filter venues to viewport if many
 
----
+- --
 
 ## Components Needed
 

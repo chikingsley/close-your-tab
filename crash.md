@@ -1,7 +1,7 @@
--------------------------------------
+- ------------------------------------
 
 Translated Report (Full Report Below)
--------------------------------------
+- ------------------------------------
 
 Process:             closeyourtab [65503]
 Path:                /Users/USER/Library/Developer/CoreSimulator/Devices/13B9FB16-6113-408A-AD8A-A155750309D9/data/Containers/Bundle/Application/A5D7C373-750A-40A4-BE87-A5FC64D28CE5/closeyourtab.app/closeyourtab
@@ -307,7 +307,7 @@ VM Region Summary:
 ReadOnly portion of Libraries: Total=1.8G resident=0K(0%) swapped_out_or_unallocated=1.8G(100%)
 Writable regions: Total=1.8G written=3476K(0%) resident=2852K(0%) swapped_out=624K(0%) unallocated=1.8G(100%)
 
-                                VIRTUAL   REGION 
+                                VIRTUAL   REGION
 REGION TYPE                        SIZE    COUNT (non-coalesced)
 ===========                     =======  =======
 Accelerate framework               128K        1
@@ -342,10 +342,10 @@ shared memory                       16K        1
 ===========                     =======  =======
 TOTAL                              6.3G     4748
 
------------
+- ----------
 
 Full Report
------------
+- ----------
 
 {"app_name":"closeyourtab","timestamp":"2025-12-01 23:40:06.00 -0700","app_version":"1.0.0","slice_uuid":"a9ee95aa-2d16-3361-be48-6f3efcd85e2d","build_version":"1","platform":7,"bundleID":"com.peacockerystudio.closeyourtab","share_with_app_devs":0,"is_first_party":0,"bug_type":"309","os_version":"macOS 26.1 (25B78)","roots_installed":0,"name":"closeyourtab","incident_id":"809C4C94-24DA-46A3-8222-0CE7A3C11464"}
 {
