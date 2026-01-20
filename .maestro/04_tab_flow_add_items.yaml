@@ -1,0 +1,81 @@
+# 04_tab_flow_add_items.yaml
+# Tests adding items to an active tab
+# Tags: tab-flow, ui
+
+appId: com.peacockerystudio.closeyourtab
+name: Tab Flow - Add items to tab
+tags:
+  - tab-flow
+  - ui
+
+---
+# Launch with permissions
+- launchApp:
+    permissions:
+      all: allow
+
+# Wait for app to load
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 10000
+
+# Look for active tab bottom sheet
+- extendedWaitUntil:
+    visible: "Add Drink"
+    timeout: 5000
+
+# If collapsed, expand the sheet
+- tapOn:
+    text: "Add Drink"
+    optional: true
+
+# Wait for expanded state
+- extendedWaitUntil:
+    visible: "QUICK ADD"
+    timeout: 3000
+
+# Add a beer
+- tapOn:
+    text: "Beer"
+    optional: true
+
+# Add wine
+- tapOn:
+    text: "Wine"
+    optional: true
+
+# Add food
+- tapOn:
+    text: "Food"
+    optional: true
+
+# Verify items appear in the list
+- assertVisible:
+    text: "YOUR TAB"
+    optional: true
+
+# Check item count shows (3 items)
+- assertVisible:
+    text: "3 items"
+    optional: true
+
+# Add custom item
+- tapOn:
+    text: "Custom"
+    optional: true
+
+- extendedWaitUntil:
+    visible: "Item name..."
+    timeout: 3000
+
+# Input the item name
+- inputText: "Nachos"
+
+- tapOn:
+    text: "Add"
+    optional: true
+
+# Verify running total updates
+- assertVisible:
+    text: "$0.00"
+    optional: true
