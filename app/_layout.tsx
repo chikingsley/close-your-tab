@@ -23,6 +23,7 @@ export default function RootLayout() {
   const { requestAllPermissions } = usePermissions();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Run only on mount
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const initializeApp = async () => {
       // Request permissions on first launch
@@ -37,6 +38,7 @@ export default function RootLayout() {
 
     initializeApp();
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
