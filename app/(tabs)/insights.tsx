@@ -1,11 +1,15 @@
 import { HistoryList } from "@/components/HistoryList";
 import { useTabStore } from "@/store/useTabStore";
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useColorScheme } from "nativewind";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function InsightsScreen() {
 	const { history } = useTabStore();
+	const router = useRouter();
+	const { colorScheme } = useColorScheme();
 
 	// Calculate basic stats
 	const totalSpent = history.reduce(
@@ -29,9 +33,21 @@ export default function InsightsScreen() {
 	return (
 		<SafeAreaView className="flex-1 bg-gray-50 dark:bg-black" edges={["top"]}>
 			<View className="p-4 flex-1">
-				<Text className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-					Insights
-				</Text>
+				<View className="flex-row items-center justify-between mb-4">
+					<Text className="text-2xl font-bold text-gray-900 dark:text-white">
+						Insights
+					</Text>
+					<TouchableOpacity
+						onPress={() => router.push("/settings")}
+						hitSlop={8}
+					>
+						<Ionicons
+							name="settings-outline"
+							size={24}
+							color={colorScheme === "dark" ? "#fff" : "#007AFF"}
+						/>
+					</TouchableOpacity>
+				</View>
 
 				{/* Stats Cards */}
 				<View className="flex-row gap-3 mb-6">

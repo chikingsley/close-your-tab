@@ -61,10 +61,39 @@ export default function MapScreen() {
 		}
 	}, []);
 
-	// Fetch venues on mount
+	// Center on the user and fetch venues on mount. Location permission is
+	// requested by the root layout at first launch, so retry a few times to
+	// give the user a chance to grant it before falling back.
 	useEffect(() => {
-		// eslint-disable-next-line react-hooks/set-state-in-effect -- isLoadingVenues already starts true; the sync setState inside fetchVenues is a no-op here
-		fetchVenues(SCOTTSDALE_OLD_TOWN.latitude, SCOTTSDALE_OLD_TOWN.longitude);
+		let cancelled = false;
+
+		const locateAndFetch = async () => {
+			for (let attempt = 0; attempt < 6; attempt++) {
+				const location = await getCurrentLocation();
+				if (cancelled) return;
+				if (location) {
+					const userRegion = {
+						latitude: location.coords.latitude,
+						longitude: location.coords.longitude,
+						latitudeDelta: 0.008,
+						longitudeDelta: 0.008,
+					};
+					setRegion(userRegion);
+					mapRef.current?.animateToRegion(userRegion, 500);
+					fetchVenues(userRegion.latitude, userRegion.longitude);
+					return;
+				}
+				await new Promise((resolve) => setTimeout(resolve, 2000));
+				if (cancelled) return;
+			}
+			// No location available - fall back to the default region
+			fetchVenues(SCOTTSDALE_OLD_TOWN.latitude, SCOTTSDALE_OLD_TOWN.longitude);
+		};
+
+		locateAndFetch();
+		return () => {
+			cancelled = true;
+		};
 	}, [fetchVenues]);
 
 	// Debounced fetch on region change
@@ -191,6 +220,7 @@ export default function MapScreen() {
 				onRegionChangeComplete={handleRegionChange}
 				showsUserLocation
 				showsMyLocationButton={false}
+				showsPointsOfInterests={false}
 			>
 				{/* Venue markers - only render when zoomed in enough */}
 				{hasLoadedOnce && isZoomedEnough && filteredVenues.map((venue) => {

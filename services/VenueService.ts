@@ -30,53 +30,34 @@ interface PlacesNearbyResponse {
   error_message?: string;
 }
 
-export const identifyVenue = async (
+// The legacy Places Nearby Search API only honors a single `type` per request,
+// so query each venue type in parallel and merge the results.
+const fetchVenuesForType = async (
   latitude: number,
-  longitude: number
-): Promise<Venue | null> => {
-  try {
-    // Build the API URL for nearby search
-    const typesParam = VENUE_TYPES.join('|');
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${VENUE_SEARCH_RADIUS}&type=${typesParam}&key=${GOOGLE_PLACES_API_KEY}`;
+  longitude: number,
+  radius: number,
+  type: string
+): Promise<Venue[]> => {
+  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=${type}&key=${GOOGLE_PLACES_API_KEY}`;
 
-    console.log(`Searching for venues near ${latitude}, ${longitude}`);
+  const response = await fetch(url);
+  const data: PlacesNearbyResponse = await response.json();
 
-    const response = await fetch(url);
-    const data: PlacesNearbyResponse = await response.json();
-
-    if (data.status !== 'OK') {
-      if (data.status === 'ZERO_RESULTS') {
-        console.log('No venues found nearby');
-        return null;
-      }
-      console.error('Places API error:', data.status, data.error_message);
-      return null;
-    }
-
-    if (data.results.length === 0) {
-      return null;
-    }
-
-    // Return the closest/first result
-    const place = data.results[0];
-
-    const venue: Venue = {
-      placeId: place.place_id,
-      name: place.name,
-      vicinity: place.vicinity,
-      types: place.types,
-      location: {
-        latitude: place.geometry.location.lat,
-        longitude: place.geometry.location.lng,
-      },
-    };
-
-    console.log('Found venue:', venue.name);
-    return venue;
-  } catch (error) {
-    console.error('Error fetching venues:', error);
-    return null;
+  if (data.status !== 'OK' && data.status !== 'ZERO_RESULTS') {
+    console.error('Places API error:', data.status, data.error_message);
+    return [];
   }
+
+  return data.results.map((place) => ({
+    placeId: place.place_id,
+    name: place.name,
+    vicinity: place.vicinity,
+    types: place.types,
+    location: {
+      latitude: place.geometry.location.lat,
+      longitude: place.geometry.location.lng,
+    },
+  }));
 };
 
 export const searchNearbyVenues = async (
@@ -85,31 +66,37 @@ export const searchNearbyVenues = async (
   radius: number = 500
 ): Promise<Venue[]> => {
   try {
-    const typesParam = VENUE_TYPES.join('|');
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=${typesParam}&key=${GOOGLE_PLACES_API_KEY}`;
+    const perType = await Promise.all(
+      VENUE_TYPES.map((type) => fetchVenuesForType(latitude, longitude, radius, type))
+    );
 
-    const response = await fetch(url);
-    const data: PlacesNearbyResponse = await response.json();
-
-    if (data.status !== 'OK' && data.status !== 'ZERO_RESULTS') {
-      console.error('Places API error:', data.status, data.error_message);
-      return [];
+    const byPlaceId = new Map<string, Venue>();
+    for (const venue of perType.flat()) {
+      byPlaceId.set(venue.placeId, venue);
     }
-
-    return data.results.map((place) => ({
-      placeId: place.place_id,
-      name: place.name,
-      vicinity: place.vicinity,
-      types: place.types,
-      location: {
-        latitude: place.geometry.location.lat,
-        longitude: place.geometry.location.lng,
-      },
-    }));
+    return [...byPlaceId.values()];
   } catch (error) {
     console.error('Error searching venues:', error);
     return [];
   }
+};
+
+export const identifyVenue = async (
+  latitude: number,
+  longitude: number
+): Promise<Venue | null> => {
+  console.log(`Searching for venues near ${latitude}, ${longitude}`);
+  const venues = await searchNearbyVenues(latitude, longitude, VENUE_SEARCH_RADIUS);
+
+  if (venues.length === 0) {
+    console.log('No venues found nearby');
+    return null;
+  }
+
+  // Prefer bars/nightclubs over restaurants when both are in range
+  const venue = venues.find(isBarOrNightclub) ?? venues[0];
+  console.log('Found venue:', venue.name);
+  return venue;
 };
 
 // Check if a venue type is a bar/nightclub (for higher priority detection)
