@@ -1,4 +1,4 @@
-import { GOOGLE_PLACES_API_KEY, VENUE_SEARCH_RADIUS, VENUE_TYPES } from '@/config/constants';
+import { MAPBOX_ACCESS_TOKEN, VENUE_SEARCH_RADIUS, VENUE_TYPES } from '@/config/constants';
 
 export interface Venue {
   placeId: string;
@@ -11,53 +11,75 @@ export interface Venue {
   };
 }
 
-interface PlacesNearbyResult {
-  place_id: string;
-  name: string;
-  vicinity: string;
-  types: string[];
-  geometry: {
-    location: {
-      lat: number;
-      lng: number;
+interface MapboxCategoryFeature {
+  properties: {
+    mapbox_id: string;
+    name: string;
+    address?: string;
+    full_address?: string;
+    poi_category_ids?: string[];
+    coordinates: {
+      longitude: number;
+      latitude: number;
     };
   };
 }
 
-interface PlacesNearbyResponse {
-  results: PlacesNearbyResult[];
-  status: string;
-  error_message?: string;
+interface MapboxCategoryResponse {
+  features?: MapboxCategoryFeature[];
+  message?: string;
 }
 
-// The legacy Places Nearby Search API only honors a single `type` per request,
-// so query each venue type in parallel and merge the results.
-const fetchVenuesForType = async (
+// Normalize Mapbox category ids into the type vocabulary the rest of the app
+// filters on ('bar', 'night_club', 'restaurant', 'cafe').
+const normalizeTypes = (categoryIds: string[]): string[] => {
+  const types = new Set<string>(categoryIds);
+  for (const id of categoryIds) {
+    if (id.includes('bar') || id === 'pub') types.add('bar');
+    if (id.includes('night') || id === 'nightlife') types.add('night_club');
+    if (id.includes('restaurant') || id === 'food') types.add('restaurant');
+    if (id.includes('cafe') || id.includes('coffee')) types.add('cafe');
+  }
+  return [...types];
+};
+
+const fetchVenuesForCategory = async (
   latitude: number,
   longitude: number,
   radius: number,
-  type: string
+  category: string
 ): Promise<Venue[]> => {
-  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=${type}&key=${GOOGLE_PLACES_API_KEY}`;
+  const url =
+    `https://api.mapbox.com/search/searchbox/v1/category/${category}` +
+    `?proximity=${longitude},${latitude}&limit=25&access_token=${MAPBOX_ACCESS_TOKEN}`;
 
   const response = await fetch(url);
-  const data: PlacesNearbyResponse = await response.json();
+  const data: MapboxCategoryResponse = await response.json();
 
-  if (data.status !== 'OK' && data.status !== 'ZERO_RESULTS') {
-    console.error('Places API error:', data.status, data.error_message);
+  if (!response.ok || !data.features) {
+    console.error('Mapbox category search error:', response.status, data.message);
     return [];
   }
 
-  return data.results.map((place) => ({
-    placeId: place.place_id,
-    name: place.name,
-    vicinity: place.vicinity,
-    types: place.types,
-    location: {
-      latitude: place.geometry.location.lat,
-      longitude: place.geometry.location.lng,
-    },
-  }));
+  return data.features
+    .map((feature) => {
+      const p = feature.properties;
+      return {
+        placeId: p.mapbox_id,
+        name: p.name,
+        vicinity: p.address ?? p.full_address ?? '',
+        types: normalizeTypes(p.poi_category_ids ?? [category]),
+        location: {
+          latitude: p.coordinates.latitude,
+          longitude: p.coordinates.longitude,
+        },
+      };
+    })
+    .filter(
+      (venue) =>
+        calculateDistance(latitude, longitude, venue.location.latitude, venue.location.longitude) <=
+        radius
+    );
 };
 
 export const searchNearbyVenues = async (
@@ -66,12 +88,12 @@ export const searchNearbyVenues = async (
   radius: number = 500
 ): Promise<Venue[]> => {
   try {
-    const perType = await Promise.all(
-      VENUE_TYPES.map((type) => fetchVenuesForType(latitude, longitude, radius, type))
+    const perCategory = await Promise.all(
+      VENUE_TYPES.map((category) => fetchVenuesForCategory(latitude, longitude, radius, category))
     );
 
     const byPlaceId = new Map<string, Venue>();
-    for (const venue of perType.flat()) {
+    for (const venue of perCategory.flat()) {
       byPlaceId.set(venue.placeId, venue);
     }
     return [...byPlaceId.values()];

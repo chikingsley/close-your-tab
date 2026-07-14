@@ -33,7 +33,7 @@ Detailed specs for each feature area:
 
 - [x] Location permission handling
 - [x] Background location tracking
-- [x] Google Places API integration (nearby venue detection)
+- [x] Mapbox Search API integration (nearby venue detection; was Google Places)
 - [x] Basic tab state management (Zustand store)
 - [x] Departure detection with geofencing
 - [x] Push notification on departure reminder
@@ -213,7 +213,7 @@ Detailed specs for each feature area:
 
 | Service | Purpose | Status |
 |---------|---------|--------|
-| Google Places API | Venue detection & search | ✅ Active |
+| Mapbox Search API | Venue detection & search | ✅ Active |
 | Google Maps API | Map view | ✅ Active (same key) |
 | Plaid | Bank transaction sync | ⏳ Phase 4 |
 | TheCocktailDB | Drink database | ⏳ Phase 5 |

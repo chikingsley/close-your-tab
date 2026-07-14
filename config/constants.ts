@@ -1,9 +1,9 @@
 // API Keys - loaded from environment variables
-export const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_PLACES_API_KEY ?? '';
+export const MAPBOX_ACCESS_TOKEN = process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
 
 // Venue detection settings
 export const VENUE_SEARCH_RADIUS = 50; // meters - how close you need to be to detect a venue
-export const VENUE_TYPES = ['bar', 'night_club', 'restaurant']; // Google Places types to detect
+export const VENUE_TYPES = ['bar', 'nightlife', 'restaurant']; // Mapbox canonical category ids to search
 
 // Location tracking settings
 export const LOCATION_UPDATE_INTERVAL = 60000; // 1 minute

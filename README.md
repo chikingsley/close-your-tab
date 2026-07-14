@@ -5,7 +5,7 @@ A personal bar-tab tracker that reminds you to close your tab before you leave â
 ## How it works
 
 1. The app tracks your location in the background (with your permission).
-2. When you arrive at a bar or restaurant, it detects the venue via the Google Places API and offers to open a tab.
+2. When you arrive at a bar or restaurant, it detects the venue via the Mapbox Search API and offers to open a tab.
 3. If you walk away from the venue with a tab still open, geofencing detects the departure and sends a push notification: *"Did you close your tab?"*
 4. Closing a tab records the venue, duration, and amount to your local history.
 
@@ -18,7 +18,7 @@ See [docs/ROADMAP.md](./docs/ROADMAP.md) for the full product roadmap and [docs/
 - [Zustand](https://zustand.docs.pmnd.rs) (persisted to AsyncStorage) for state
 - `react-native-maps` for the map home screen
 - `expo-location` + `expo-task-manager` for background venue/departure detection
-- Google Places API for venue lookup
+- Mapbox Search Box API for venue lookup
 
 ## Getting started
 
@@ -34,7 +34,7 @@ Requires a [development build](https://docs.expo.dev/develop/development-builds/
 
    ```bash
    cp .env.example .env
-   # then set EXPO_PUBLIC_GOOGLE_PLACES_API_KEY in .env
+   # then set EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN in .env
    ```
 
 3. Build and run on a simulator/device:
