@@ -2,7 +2,7 @@ import '../global.css';
 import 'react-native-reanimated';
 
 import { PortalHost } from '@rn-primitives/portal';
-import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
+import { ThemeProvider as NavThemeProvider } from "expo-router/react-navigation";
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';

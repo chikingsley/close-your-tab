@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 20.5.1",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "6790690800",
+        "ascApiKeyPath": "/Users/simonpeacocks/Downloads/AuthKey_9WD5ZMT9MY.p8",
+        "ascApiKeyId": "9WD5ZMT9MY",
+        "ascApiKeyIssuerId": "d1804d83-f266-43bc-8cda-edb51b2c2354"
+      }
+    }
+  }
+}

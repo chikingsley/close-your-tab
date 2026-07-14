@@ -1,5 +1,4 @@
-import type { Theme } from '@react-navigation/native';
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { type Theme, DarkTheme, DefaultTheme } from "expo-router/react-navigation";
 
 // These values should match the CSS variables in global.css
 // When updating global.css, update these values too

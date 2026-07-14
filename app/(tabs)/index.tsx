@@ -42,7 +42,7 @@ export default function MapScreen() {
 	const [isZoomedEnough, setIsZoomedEnough] = useState(true);
 
 	// Debounce timer for fetching venues on region change
-	const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const fetchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	// Fetch venues for current region
 	const fetchVenues = useCallback(async (lat: number, lng: number) => {
@@ -63,6 +63,7 @@ export default function MapScreen() {
 
 	// Fetch venues on mount
 	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect -- isLoadingVenues already starts true; the sync setState inside fetchVenues is a no-op here
 		fetchVenues(SCOTTSDALE_OLD_TOWN.latitude, SCOTTSDALE_OLD_TOWN.longitude);
 	}, [fetchVenues]);
 
