@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.peacockerystudio.closeyourtab",
+      "bundleIdentifier": "studio.peacockery.closeyourtab",
       "infoPlist": {
         "UIBackgroundModes": [
           "location",
@@ -19,7 +19,7 @@
       }
     },
     "android": {
-      "package": "com.peacockerystudio.closeyourtab",
+      "package": "studio.peacockery.closeyourtab",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
