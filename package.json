@@ -8,7 +8,12 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "e2e": "maestro test .maestro/",
+    "e2e:ios": "maestro test .maestro/ --platform ios",
+    "e2e:android": "maestro test .maestro/ --platform android"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
@@ -53,10 +58,14 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^13.3.3",
     "@types/react": "~19.2.4",
+    "@types/react-test-renderer": "^19.1.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~57.0.0",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "react-test-renderer": "19.2.3",
     "typescript": "~6.0.3"
   },
   "private": true

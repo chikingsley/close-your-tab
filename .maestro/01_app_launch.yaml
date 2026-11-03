@@ -1,0 +1,31 @@
+# 01_app_launch.yaml
+# Smoke test - verifies app launches correctly
+# Tags: smoke, ui
+
+appId: com.peacockerystudio.closeyourtab
+name: App Launch - Verify app launches and shows main screen
+tags:
+  - smoke
+  - ui
+
+---
+# Launch the app with permissions granted
+- launchApp:
+    clearState: true
+    clearKeychain: true
+    permissions:
+      all: allow
+
+# Wait for app to load
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 10000
+
+# Verify bottom navigation is visible
+- assertVisible: "Map"
+- assertVisible: "Insights"
+
+# Verify we're on the map screen (default tab)
+- assertVisible:
+    id: "map-view"
+    optional: true

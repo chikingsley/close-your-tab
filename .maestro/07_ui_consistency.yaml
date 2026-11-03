@@ -1,0 +1,64 @@
+# 07_ui_consistency.yaml
+# Comprehensive UI consistency checks across the app
+# Tags: ui, smoke
+
+appId: com.peacockerystudio.closeyourtab
+name: UI Consistency - Visual regression baseline
+tags:
+  - ui
+  - smoke
+
+---
+# Launch with permissions
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+
+# Wait for app
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 10000
+
+# === MAP SCREEN ===
+- takeScreenshot: ui_map_screen
+
+# Check filter chips if present
+- assertVisible:
+    text: "Bars"
+    optional: true
+
+- assertVisible:
+    text: "Restaurants"
+    optional: true
+
+- assertVisible:
+    text: "Favorites"
+    optional: true
+
+# === INSIGHTS SCREEN ===
+- tapOn: "Insights"
+- extendedWaitUntil:
+    visible: "Total Spent"
+    timeout: 5000
+- takeScreenshot: ui_insights_screen
+
+# Verify consistent typography
+# Stat labels should be visible
+- assertVisible: "Total Spent"
+- assertVisible: "Avg Tab"
+- assertVisible: "Total Tabs"
+
+# === NAVIGATION CONSISTENCY ===
+# Bottom tabs should be consistently styled
+- assertVisible: "Map"
+- assertVisible: "Insights"
+
+# Return to map
+- tapOn: "Map"
+- extendedWaitUntil:
+    visible: "Map"
+    timeout: 5000
+
+# Final screenshot
+- takeScreenshot: ui_final_state
