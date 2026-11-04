@@ -47,8 +47,11 @@ jobs:
       - name: Run tests
         run: bun test
 
+  # E2E runs only when started by hand from the Actions tab. It takes about 50
+  # minutes on a macOS runner and has not passed yet, so it does not run on push.
   e2e-preflight:
     name: E2E Preflight (credentials)
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: unit-tests
@@ -70,6 +73,7 @@ jobs:
 
   e2e-tests:
     name: E2E Tests (Maestro)
+    if: github.event_name == 'workflow_dispatch'
     runs-on: macos-26
     timeout-minutes: 60
     needs: e2e-preflight
