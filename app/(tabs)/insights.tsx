@@ -38,6 +38,7 @@ export default function InsightsScreen() {
 						Insights
 					</Text>
 					<TouchableOpacity
+						testID="settings-button"
 						onPress={() => router.push("/settings")}
 						hitSlop={8}
 					>

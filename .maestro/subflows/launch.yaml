@@ -1,0 +1,11 @@
+# Fresh launch with permissions granted, waiting until the map is ready.
+appId: studio.peacockery.closeyourtab
+---
+- launchApp:
+    clearState: true
+    clearKeychain: true
+    permissions:
+      all: allow
+- extendedWaitUntil:
+    visible: "Bars"
+    timeout: 30000

@@ -235,6 +235,7 @@ const TabBottomSheetComponent = ({ activeTab, onCloseTab }: TabBottomSheetProps)
 							<View style={styles.inputGroup}>
 								<Text style={styles.inputLabel}>Final Amount ($)</Text>
 								<BottomSheetTextInput
+									testID="final-amount-input"
 									style={styles.amountInput}
 									value={finalAmount}
 									onChangeText={setFinalAmount}
@@ -258,6 +259,7 @@ const TabBottomSheetComponent = ({ activeTab, onCloseTab }: TabBottomSheetProps)
 									))}
 								</View>
 								<BottomSheetTextInput
+									testID="tip-amount-input"
 									style={styles.amountInput}
 									value={tipAmount}
 									onChangeText={setTipAmount}

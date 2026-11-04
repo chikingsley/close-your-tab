@@ -1,56 +1,17 @@
-# 06_insights_screen.yaml
-# Tests the Insights/Analytics screen UI consistency
-# Tags: ui, navigation
-
+# The Insights screen in its empty state.
 appId: studio.peacockery.closeyourtab
 name: Insights Screen - UI consistency check
 tags:
   - ui
   - navigation
-
 ---
-# Launch with permissions
-- launchApp:
-    permissions:
-      all: allow
-
-# Wait for app
-- extendedWaitUntil:
-    visible: "Map"
-    timeout: 10000
-
-# Navigate to Insights
+- runFlow: subflows/launch.yaml
 - tapOn: "Insights"
-
-# Wait for screen to load
 - extendedWaitUntil:
-    visible: "Total Spent"
-    timeout: 5000
-
-# === UI CONSISTENCY CHECKS ===
-
-# Verify stat cards are present
-- assertVisible: "Total Spent"
+    visible: "This Month"
+    timeout: 10000
 - assertVisible: "Avg Tab"
 - assertVisible: "Total Tabs"
-
-# Check for proper formatting of amounts (should show $ prefix)
-- assertVisible:
-    text: "$"
-    optional: true
-
-# Verify History section exists
-- assertVisible:
-    text: "History"
-    optional: true
-
-# If there's no history, verify empty state
-- assertVisible:
-    text: "No tabs yet"
-    optional: true
-
-# Scroll to check more content if present
-- scroll
-
-# Check for consistent card styling
+- assertVisible: "History"
+- assertVisible: "No history yet\\. Go out and have fun!"
 - takeScreenshot: insights_screen

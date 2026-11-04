@@ -87,6 +87,20 @@ export const searchNearbyVenues = async (
   longitude: number,
   radius: number = 500
 ): Promise<Venue[]> => {
+  // E2E builds set this flag so flows get a stable venue without live Mapbox data.
+  // Metro inlines the value, so this branch is removed from other builds.
+  if (process.env.EXPO_PUBLIC_E2E === '1') {
+    return [
+      {
+        placeId: 'e2e-venue',
+        name: 'E2E Test Bar',
+        vicinity: 'Test Street',
+        types: ['bar'],
+        location: { latitude, longitude },
+      },
+    ];
+  }
+
   try {
     const perCategory = await Promise.all(
       VENUE_TYPES.map((category) => fetchVenuesForCategory(latitude, longitude, radius, category))
