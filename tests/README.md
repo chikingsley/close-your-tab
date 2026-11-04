@@ -39,6 +39,10 @@ UI flow tests that run on actual iOS/Android simulators.
 2. Have an iOS Simulator or Android Emulator running
 3. Build and run the app
 
+### Flows and the e2e build
+
+Flows open tabs at a fixture venue, so they need a build with `EXPO_PUBLIC_E2E=1`, which the `e2e` EAS profile sets. CI builds that profile and runs the flows on a simulator on the macOS runner with the free Maestro CLI.
+
 ### Running E2E Tests
 ```bash
 # Run all E2E tests
