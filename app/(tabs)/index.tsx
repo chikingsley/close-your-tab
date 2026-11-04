@@ -236,7 +236,6 @@ export default function MapScreen() {
 					return (
 						<Marker
 							key={venue.placeId}
-							testID="venue-marker"
 							identifier={venue.placeId}
 							coordinate={{
 								latitude: venue.location.latitude,

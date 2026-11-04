@@ -20,6 +20,7 @@ tags:
 - tapOn:
     id: "final-amount-input"
 - inputText: "45.00"
+- hideKeyboard
 - tapOn: "20%"
 - assertVisible: "9\\.00"
 - tapOn: "Close Tab"
