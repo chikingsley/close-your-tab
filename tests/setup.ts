@@ -190,7 +190,7 @@ mock.module("@rn-primitives/slot", () => {
 		if (React.Children.count(children) === 0) {
 			return null;
 		}
-		return React.Children.map(children, (child) => {
+		return React.Children.map(children, (child: React.ReactNode) => {
 			if (!React.isValidElement(child)) return child;
 			return React.cloneElement(child as React.ReactElement, { ...props, ref });
 		});
