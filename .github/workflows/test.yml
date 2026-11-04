@@ -61,12 +61,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Check Expo token can see this project
+      - name: Check Expo token
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: |
-          npx --yes "eas-cli@$EAS_VERSION" whoami
-          npx --yes "eas-cli@$EAS_VERSION" project:info
+        # whoami prints the account email, and logs on this repo are public.
+        run: npx --yes "eas-cli@$EAS_VERSION" whoami > /dev/null
 
       - name: Check Maestro Cloud key
         env:
