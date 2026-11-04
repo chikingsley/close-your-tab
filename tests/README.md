@@ -67,7 +67,7 @@ maestro test .maestro/01_app_launch.yaml
 
 ### Writing Maestro Tests
 ```yaml
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: My Test
 ---
 - launchApp

@@ -2,7 +2,7 @@
 # Tests navigation between tabs and screens
 # Tags: navigation, ui
 
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: Navigation - Tab navigation and screen transitions
 tags:
   - navigation

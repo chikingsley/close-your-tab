@@ -2,7 +2,7 @@
 # Comprehensive UI consistency checks across the app
 # Tags: ui, smoke
 
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: UI Consistency - Visual regression baseline
 tags:
   - ui

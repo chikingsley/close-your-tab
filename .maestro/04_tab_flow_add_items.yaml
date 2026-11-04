@@ -2,7 +2,7 @@
 # Tests adding items to an active tab
 # Tags: tab-flow, ui
 
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: Tab Flow - Add items to tab
 tags:
   - tab-flow

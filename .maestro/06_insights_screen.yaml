@@ -2,7 +2,7 @@
 # Tests the Insights/Analytics screen UI consistency
 # Tags: ui, navigation
 
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: Insights Screen - UI consistency check
 tags:
   - ui

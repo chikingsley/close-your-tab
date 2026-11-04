@@ -2,7 +2,7 @@
 # Smoke test - verifies app launches correctly
 # Tags: smoke, ui
 
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: App Launch - Verify app launches and shows main screen
 tags:
   - smoke

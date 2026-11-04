@@ -13,6 +13,13 @@
     },
     "production": {
       "autoIncrement": true
+    },
+    "e2e": {
+      "environment": "production",
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
     }
   },
   "submit": {

@@ -2,12 +2,12 @@
 # https://maestro.mobile.dev/
 
 # App configuration
-appId: com.peacockerystudio.closeyourtab
+appId: studio.peacockery.closeyourtab
 name: Close Your Tab E2E Tests
 
 # Default settings
 env:
-  APP_ID: com.peacockerystudio.closeyourtab
+  APP_ID: studio.peacockery.closeyourtab
 
 # Test execution settings
 # Increase timeout for slower operations

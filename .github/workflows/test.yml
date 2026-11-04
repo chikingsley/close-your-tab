@@ -5,69 +5,128 @@ on:
     branches: [main, claude/*]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUN_VERSION: 1.4.4
+  EAS_VERSION: 27.4.1
+  NODE_VERSION: 26
 
 jobs:
   unit-tests:
     name: Unit Tests (Bun)
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
-          bun-version: latest
+          bun-version: ${{ env.BUN_VERSION }}
 
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Lint
+        run: bun run lint
 
       - name: Run tests
         run: bun test
 
-  e2e-tests:
-    name: E2E Tests (Maestro Cloud)
-    runs-on: macos-latest
+  e2e-preflight:
+    name: E2E Preflight (credentials)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: unit-tests
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Check Expo token can see this project
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          npx --yes "eas-cli@$EAS_VERSION" whoami
+          npx --yes "eas-cli@$EAS_VERSION" project:info
+
+      - name: Check Maestro Cloud key
+        env:
+          MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+        run: |
+          status=$(curl -sS -o projects.json -w '%{http_code}' \
+            -H "Authorization: Bearer $MAESTRO_CLOUD_API_KEY" \
+            https://api.copilot.mobile.dev/v2/maestro-studio/projects)
+          echo "Maestro Cloud responded with HTTP $status"
+          test "$status" = 200
+          jq -r '"Projects visible to this key: \(length)", (.[] | .id)' projects.json
+
+  e2e-tests:
+    name: E2E Tests (Maestro Cloud)
+    runs-on: macos-26
+    timeout-minutes: 60
+    needs: e2e-preflight
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
 
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Setup EAS
-        uses: expo/expo-github-action@v8
+        uses: expo/expo-github-action@9da89d3617bb88139671bad31b09c65714c2ee06 # 9.0.1
         with:
-          eas-version: latest
+          eas-version: ${{ env.EAS_VERSION }}
+          packager: bun
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build iOS Simulator app
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build --profile development --platform ios --local --output ./app-build.tar.gz --non-interactive
+        run: eas build --profile e2e --platform ios --local --output ./app-build.tar.gz --non-interactive
 
       - name: Extract app
         run: |
           tar -xzf app-build.tar.gz
-          mv *.app close-your-tab.app
+          mv ./*.app close-your-tab.app
 
       - name: Install Maestro
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Run Maestro Cloud tests
         env:
           MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
         run: |
-          ~/.maestro/bin/maestro cloud \
-            --apiKey "$MAESTRO_CLOUD_API_KEY" \
+          maestro cloud \
+            --api-key "$MAESTRO_CLOUD_API_KEY" \
             --app-file close-your-tab.app \
-            .maestro/
+            --flows .maestro/
