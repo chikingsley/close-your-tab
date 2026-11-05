@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils';
-import { Platform, TextInput, type TextInputProps } from 'react-native';
+import { Platform, TextInput, type TextInputInstance, type TextInputProps } from 'react-native';
 
 function Input({
   className,
   placeholderClassName,
   ...props
-}: TextInputProps & React.RefAttributes<TextInput>) {
+}: TextInputProps & React.RefAttributes<TextInputInstance>) {
   return (
     <TextInput
       className={cn(

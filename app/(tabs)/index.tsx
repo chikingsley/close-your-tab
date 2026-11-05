@@ -7,10 +7,10 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
-import MapView, { Marker, type Region } from "react-native-maps";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MapFilterChips, type VenueFilter } from "@/components/MapFilterChips";
+import { MapView, Marker, type Region } from "@/components/maps";
 import { TabBottomSheet } from "@/components/TabBottomSheet";
 import { VenueChip } from "@/components/VenueChip";
 import { getCurrentLocation } from "@/services/LocationService";
